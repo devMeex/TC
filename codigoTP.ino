@@ -28,26 +28,26 @@ void setup() {
 
 void initializeType(){
   int tmp = EEPROM.read(address);
-  if(tmp=1){
+  if(tmp==1){
     wave_type = "TRIANGLE";
   }
-  if(tmp=2){
+  if(tmp==2){
     wave_type = "SQUARE";
   }
-  if(tmp=3){
+  if(tmp==3){
     wave_type = "SINE";
   }
 }
 
 void saveType(String type){
   int tmp = -1;
-  if(type="TRIANGLE"){
+  if(type=="TRIANGLE"){
     tmp = 1;
   }
-  if(type="SQUARE"){ 
+  if(type=="SQUARE"){ 
     tmp = 2;
   }
-  if(type="SINE"){ 
+  if(type=="SINE"){ 
     tmp = 3;
   }
   EEPROM.update(address, tmp);
