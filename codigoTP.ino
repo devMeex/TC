@@ -1,3 +1,10 @@
+/*
+*Guarda en la  eeprom la
+*ultima wave_type que se
+*envio por serial. Al iniciar 
+*el bosquejo se restaura la 
+*wave_type desde la eeprom
+*/
 unsigned long start;
 int etime = 0;
 bool increasing = true;
@@ -8,6 +15,7 @@ String wave_type = "SINE";
 int baudios = 9600;
 float periodo;
 int amplitud = 20;
+int address = 30;
 
 void setup() {
   //pinMode(A0, INPUT);
@@ -15,6 +23,34 @@ void setup() {
   Serial.begin(baudios);
   Serial.setTimeout(10);
   start = millis();
+  initializeType();
+}
+
+void initializeType(){
+  int tmp = EEPROM.read(address);
+  if(tmp=1){
+    wave_type = "TRIANGLE";
+  }
+  if(tmp=2){
+    wave_type = "SQUARE";
+  }
+  if(tmp=3){
+    wave_type = "SINE";
+  }
+}
+
+void saveType(String type){
+  int tmp = -1;
+  if(type="TRIANGLE"){
+    tmp = 1;
+  }
+  if(type="SQUARE"){ 
+    tmp = 2;
+  }
+  if(type="SINE"){ 
+    tmp = 3;
+  }
+  EEPROM.update(address, tmp);
 }
 
 void loop() {
@@ -60,6 +96,7 @@ void loop() {
     
   } else {
     wave_type = serial_input;
+    saveType(wave_type);
   }
 }
 
