@@ -6,6 +6,7 @@
   envio por serial. Al iniciar
   el bosquejo se restaura la
   wave_type desde la eeprom
+  TRABAJO APROBADO
 */
 unsigned long start;
 int etime = 0;
